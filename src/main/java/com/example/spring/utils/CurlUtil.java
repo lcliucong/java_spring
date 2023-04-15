@@ -80,4 +80,36 @@ public class CurlUtil {
         httpHeaders.add("connection","keepalive");
         return httpHeaders;
     }
+
+    public static ResponseEntity<String> post2(String uri, Map<String, Object> reqBody, Map<String, String> headers) {
+        HttpHeaders httpHeaders = DefaultHeaders();
+        for (String key : headers.keySet()) {
+            httpHeaders.add(key, headers.get(key));
+        }
+        RestTemplate restTemplate = new RestTemplate();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(5000);
+        requestFactory.setReadTimeout(30000);
+        restTemplate.setRequestFactory(requestFactory);
+        HttpEntity<String> httpEntity = new HttpEntity<>(JSONObject.toJSONString(reqBody), httpHeaders);
+        return restTemplate.postForEntity(uri, httpEntity, String.class);
+    }
+
+    public static ResponseEntity<String> post1(String uri, Map<?, ?> reqBody) {
+        RestTemplate restTemplate = new RestTemplate();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(5000);
+        requestFactory.setReadTimeout(30000);
+        restTemplate.setRequestFactory(requestFactory);
+        HttpHeaders httpHeaders = DefaultHeaders();
+        HttpEntity<String> httpEntity = new HttpEntity<>(JSONObject.toJSONString(reqBody), httpHeaders);
+        return restTemplate.postForEntity(uri, httpEntity, String.class);
+    }
+
+    private static HttpHeaders DefaultHeaders() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Type", "application/json");
+        httpHeaders.add("Connection", "keep-alive");
+        return httpHeaders;
+    }
 }

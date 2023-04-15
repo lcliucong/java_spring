@@ -69,8 +69,6 @@ public class StringController {
 
 
 
-
-
     @RequestMapping("stringBufferOther")
     public Result stringBufferOther(){
         StringBuffer stringBuffer = new StringBuffer("StringBuffer");

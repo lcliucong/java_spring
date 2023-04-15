@@ -1,18 +1,25 @@
 package com.example.spring.controller.Others;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.example.spring.constant.ErrorEnum;
 import com.example.spring.daos.UserListMapper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.example.spring.pojo.UserList;
 import com.example.spring.service.impl.UserListServiceImpl;
 import com.example.spring.utils.CommonRes;
+import com.example.spring.utils.ErrorMessage;
 import com.example.spring.utils.Result;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.sun.tools.javac.Main;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -127,6 +134,10 @@ public class Hello {
         int[] arr1 = {1,2,3,4,6};
         return arr1;
     }
+
+    /**
+     * 通过json格式获取RequestBody
+     */
     @RequestMapping(value = "getMark", method = RequestMethod.POST)
     public Result getMark(@RequestBody String json) {
         JSONObject par = JSONObject.parseObject(json);
@@ -134,6 +145,10 @@ public class Hello {
         System.out.println(par.getString("remark"));
         return Result.success(par);
     }
+
+    /**
+     * 通过map形式获取RequestBody
+     */
     @RequestMapping(value = "getRequestBody", method = RequestMethod.POST)
     public Result RequestBodys(@RequestBody Map<?,?> paramMap){
         paramMap.forEach((k,v)->{
@@ -142,5 +157,84 @@ public class Hello {
 //            log.info("values: {} ", paramMap.get("参数名称"));
         });
         return Result.success(paramMap);
+    }
+    /**
+     * {
+     *  String jsonParam = {\"phone\":\"159334452\",\"sex\":\"男\",\"name\":\"test\"}
+     * }
+     * 提供String 类型的获取到的data值，和 要获取的字段名称
+     */
+    public String JsDecode(String jsonParam, String keyName){
+        JSONObject param = JSONObject.parseObject(jsonParam);
+        return param.getString(keyName);
+    }
+
+    /**
+     * 当参数像这样时，可以这样获取
+     * {
+     *     "key":"tester",
+     *     "name":"sena",
+     *     "phone":"1593344",
+     *     "sex":1,
+     *     "group":{
+     *         "group_id":1008611,
+     *         "group_level":"heigh"
+     *     }
+     * }
+     */
+    @RequestMapping(value = "listToJson", method = RequestMethod.POST)
+    public Result makeJson(@RequestBody String jsonParam){
+        JSONObject objParam = JSONObject.parseObject(jsonParam);
+        String key =  objParam.getString("key");
+        String name = objParam.getString("name");
+        JSONObject param = objParam.getJSONObject("group");
+        log.info("group_id : {}", param.get("group_id"));
+        return Result.success(param.get("group_level"));
+    }
+    /**
+     * pretty print
+     * 全局打印
+     */
+    @RequestMapping(value = "prettyPrint1")
+    public Result prettyPrint(@RequestBody String jsonParam) throws JsonProcessingException {
+//        import com.fasterxml.jackson.databind.ObjectMapper;
+//        import com.fasterxml.jackson.databind.SerializationFeature;
+
+        ObjectMapper mapper = new ObjectMapper();
+        // pretty print jsonParam 为一个json对象
+        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonParam);
+        System.out.println(json);
+        return Result.success();
+    }
+    /**
+     * pretty print
+     * 局部打印
+     */
+    @RequestMapping(value = "prettyPrint", method = RequestMethod.POST)
+    public Result prettyPrintLocal(@RequestBody String jsonParam) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        // pretty print   jsonParam 为一个json对象
+        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonParam);
+        System.out.println(json);
+        return Result.success(json);
+    }
+    /**
+     *  reason
+     *  main work
+     *  target
+     *  enum错误抛出   enum异常抛出
+     */
+    @RequestMapping(value = "Utils", method = RequestMethod.POST)
+    public Result Utils(@RequestBody Map<?,?> mapParam) throws ErrorMessage {
+        List<Integer> list = Lists.newArrayList(1,2,3,4,5);
+        String reason = String.valueOf(mapParam.get("reason"));
+        if (StringUtils.isBlank(reason)){
+            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getErrMessage());
+        }
+        List<String> strList = Lists.newArrayList(
+                "element",
+                ""
+        );
+        return Result.success(list);
     }
 }
