@@ -229,12 +229,15 @@ public class Hello {
         List<Integer> list = Lists.newArrayList(1,2,3,4,5);
         String reason = String.valueOf(mapParam.get("reason"));
         if (StringUtils.isBlank(reason)){
-            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getErrMessage());
+            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());
         }
         List<String> strList = Lists.newArrayList(
-                "element",
-                ""
+                "element1",
+                "element2",
+                "element3",
+                "element4"
         );
-        return Result.success(list);
+        List<String> reverseList = Lists.reverse(strList);
+        return Result.success(reverseList);
     }
 }

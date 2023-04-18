@@ -117,7 +117,6 @@ public class BookListController {
      */
     @RequestMapping(value = "getBookByUser", method = RequestMethod.POST)
     public CommonRes getByUser(@RequestBody @Validated BookListFilter bookListFilter){
-
 //        formatPageHelper(bookListFilter);   //加上orderBy会说字段id模糊不清
         PageHelper.startPage(bookListFilter.getPage(),bookListFilter.getSize());
         BookModel bookModel = new BookModel();

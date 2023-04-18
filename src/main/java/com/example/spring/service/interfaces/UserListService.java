@@ -15,4 +15,5 @@ public interface UserListService {
     int updateStatusById(UserList userList);
     UserList selectByPhone(String phone);
     public String getRealPassword(String phone);
+    void insertAll(UserList userList);
 }

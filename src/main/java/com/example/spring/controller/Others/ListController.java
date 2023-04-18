@@ -1,8 +1,11 @@
 package com.example.spring.controller.Others;
 
+import com.example.spring.constant.ErrorEnum;
 import com.example.spring.filter.UserListFilter;
 import com.example.spring.utils.CommonRes;
+import com.example.spring.utils.ErrorMessage;
 import com.example.spring.utils.Result;
+import com.google.common.collect.Lists;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,8 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /***
@@ -26,7 +30,18 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Component
 @RequestMapping(value = "list")
+//@PropertySource("classpath:others.properties")
 public class ListController {
+
+    @Value("${others.username}")
+    private String url;
+    @Value("${others.userpassword}")
+    private String pwd;
+    @Value("${others.ipConfig}")
+    private String username;
+    @Value("${others.expire_time}")
+    private String expireTime;
+
     /**
      * 创建List并添加值
      * 1.List<T> list = new ArrayList<>(要设置的初始大小){{add(); add(); add()}}
@@ -149,5 +164,31 @@ public class ListController {
         }
         return Result.success(list);
 
+    }
+
+    /**
+     * Stream流
+     * @return Json
+     */
+    @RequestMapping(value = "stream", method = RequestMethod.POST)
+    public Result ListStream(){
+        List<String> nameList = Lists.newArrayList("张三" +
+                "李四" +
+                "王五" +
+                "赵六" +
+                "孙七" +
+                "李四");
+        //筛选数组中的数据
+        Object res = String.valueOf(nameList.stream().filter((name) -> name.startsWith("李四")));
+//        List<String> listA = nameList.stream().map(s -> s + 2).toList();
+        System.out.println(res);
+        return Result.success(res);
+    }
+    @RequestMapping(value = "testList", method = RequestMethod.POST)
+    public Result nameList() throws ErrorMessage {
+        List<String> lists = Lists.newArrayList("name","age","sex","height","weight");
+        if(lists.isEmpty()) { throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());}
+
+        return Result.success();
     }
 }

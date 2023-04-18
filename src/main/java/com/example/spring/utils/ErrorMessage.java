@@ -3,7 +3,7 @@ package com.example.spring.utils;
 public class ErrorMessage extends Exception {
     private int code ;
 
-    private String errmessage ;
+    private String message ;
 
     public int getCode() {
         return code;
@@ -13,17 +13,17 @@ public class ErrorMessage extends Exception {
         this.code = code;
     }
 
-    public String getErrmessage() {
-        return errmessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrmessage(String errmessage) {
-        this.errmessage = errmessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
-    public ErrorMessage (Integer code, String errmessage){
-        super();
+    public ErrorMessage (Integer code, String message){
+//        super();
         setCode(code);
-        setErrmessage(errmessage);
+        setMessage(message);
     }
 
 }

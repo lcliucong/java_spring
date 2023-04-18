@@ -1,13 +1,13 @@
 package com.example.spring.constant;
 
 public enum ErrorEnum {
-    COMMON_ERROR(10000,"运行错误"),
+    COMMON_ERROR(10000,"运行出现错误"),
     LOGIC_ERROR(10000,"代码逻辑错误")
     ;
 
 
     private Integer code;
-    private String errMessage;
+    private String message;
 
     public Integer getCode() {
         return code;
@@ -17,15 +17,15 @@ public enum ErrorEnum {
         this.code = code;
     }
 
-    public String getErrMessage() {
-        return errMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrMessage(String errMessage) {
-        this.errMessage = errMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
     ErrorEnum(Integer code,String message) {
         this.code=code;
-        this.errMessage=message;
+        this.message=message;
     }
 }

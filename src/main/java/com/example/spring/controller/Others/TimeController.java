@@ -3,6 +3,7 @@ package com.example.spring.controller.Others;
 import com.example.spring.utils.Result;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -55,11 +57,13 @@ public class TimeController {
         return Result.success(times1);
     }
     /**
-     * 获取当前日期
+     * 获取当前日期 年月日-时分秒
      */
     @RequestMapping(value = "getDate")
     public Result getDate() throws ParseException {
+        //规定 年月日-时分秒格式
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // new Date() 为2023-04-15T03:23:53.157+00:00
         String dates = simpleDateFormat.format(new Date());
         return Result.success(dates);
     }
@@ -72,5 +76,18 @@ public class TimeController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dates = sdf.format(timeStamp);
         return Result.success(dates);
+    }
+
+    /***
+     * 时间处理
+     */
+    @RequestMapping(value = "timeController")
+    public Result makeTimeFormat(@RequestBody Map<?,?> params) throws ParseException {
+        String dateStart = String.valueOf(params.get("start_time"));
+        String dateEnd = String.valueOf(params.get("end_time"));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(dateStart);
+
+        return Result.success(date);
     }
 }

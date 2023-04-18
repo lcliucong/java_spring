@@ -2,6 +2,7 @@ package com.example.spring.daos;
 
 import com.example.spring.pojo.BookModel;
 import com.example.spring.pojo.UserList;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,5 @@ public interface UserListMapper {
     int updateStatusById(UserList userList);
     UserList selectByPhone(String phone);
     String getRealPassword(String phone);
+    void insertAll(UserList userList);
 }

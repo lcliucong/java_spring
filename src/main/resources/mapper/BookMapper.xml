@@ -44,6 +44,9 @@
             <if test="id !=null">
                 id,
             </if>
+            <if test="bookName!=null">
+                bookName,
+            </if>
             <if test="bookNumber != null">
                 bookNumber,
             </if>
@@ -65,25 +68,25 @@
         </trim>
         <trim prefix="(" suffix=")" prefixOverrides=",">
             <if test="id != null">
-                id = #{id},
+                #{id,jdbcType=INTEGER}
+            </if>
+            <if test="bookName!=null">
+                #{bookName,jdbcType=VARCHAR}
             </if>
             <if test="bookNumber != null">
-                bookNumber = #{bookNumber},
+                #{bookNumber,jdbcType=VARCHAR},
             </if>
             <if test="bookAmount != null">
-                bookAmount = #{bookAmount},
+                #{bookAmount,jdbcType=INTEGER},
             </if>
             <if test="bookStatus != null">
-                bookStatus = #{bookStatus},
+                #{bookStatus,jdbcType=INTEGER},
             </if>
             <if test="bookYear != null">
-                bookYear = #{bookYear},
-            </if>
-            <if test="bookAmount != null">
-                bookAmount = #{bookAmount}
+                #{bookYear,jdbcType=TIMESTAMP},
             </if>
             <if test="bookAuth != null">
-                bookAuth = #{bookAuth}
+                bookAuth = #{bookAuth,jdbcType=VARCHAR}
             </if>
         </trim>
     </insert>

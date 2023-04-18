@@ -120,14 +120,24 @@ public class Test {
         List<Integer> list = Lists.newArrayList(1,2,3,4,5);
         String reason = String.valueOf(mapParam.get("reason"));
         if (StringUtils.isBlank(reason)){
-            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getErrMessage());
+            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());
         }
         List<String> strList = Lists.newArrayList(
       "element",
-                ""
+                "element2",
+                "element3","element4"
         );
-        return Result.success(list);
+        List<String> reverList = Lists.reverse(strList);
+        System.out.println(strList);
+        return Result.success(strList);
     }
+
+
+
+    /**
+     * 模拟出票
+     * @return
+     */
     @RequestMapping(value = "makeTicket", method = RequestMethod.POST)  //横店出票
     public Result makeTicket(){
         HashMap<String, Object> param = new HashMap<>();
@@ -169,8 +179,14 @@ public class Test {
         return Result.success(res);
     }
 
+    /**
+     *
+     */
+    @RequestMapping(value = "test", method = RequestMethod.POST)
+    public Result test(){
 
-
+        return Result.success();
+    }
 
 
 

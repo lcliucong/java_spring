@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.spring.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -82,6 +83,26 @@ public class CollectionsController {
         two_list.add(in);
         two_list.add(in_two);
         System.out.println(two_list);   // [[1,2,3],[4,5,6]]
+    }
+
+    /**
+     * Collections  工具类
+     */
+    @RequestMapping(value = "collections" ,method = RequestMethod.POST)
+    public Result collect(){
+        List<Integer> numList = Lists.newArrayList(1,2,3,4,5);
+        //获取最大值
+        Integer maxNum = Collections.max(numList);
+        System.out.println("max_value: "+ maxNum);
+        //获取最小值
+        Integer minNum = Collections.min(numList);
+        System.out.println("min_value: "+ minNum);
+        //空List
+        List<String> list = Lists.newArrayList("string1","elements2","pageHelper");
+        for (String keys : list){
+            System.out.println(keys);
+        }
+        return Result.success();
     }
 
 }

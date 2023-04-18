@@ -72,5 +72,10 @@ public class UserListServiceImpl implements UserListService {
         return userListMapper.getRealPassword(phone);
     }
 
+    @Override
+    public void insertAll(UserList userList) {
+        userListMapper.insertAll(userList);
+    }
+
 
 }
