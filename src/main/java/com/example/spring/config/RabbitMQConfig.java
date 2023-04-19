@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Configuration;
 /**
  *  RabbitMqConfig
  *  rabbitMq 配置信息
+ *  Producer(生产者)： 将消息发送到Exchange
+ *  Exchange(交换器)：将从生产者接收到的消息路由到Queue
+ *  Queue(队列)：存放供消费者消费的消息
+ *  BindingKey(绑定键)：建立Exchange与Queue之间的关系
+ *  RoutingKey(路由键)：Producer发送消息与路由键给Exchange，Exchange将判断RoutingKey是否符合BindingKey，如何则将该消息路由到绑定的Queue
+ *  Consumer(消费者)：从Queue中获取消息
  */
 @Configuration
 public class RabbitMQConfig {
@@ -15,7 +21,7 @@ public class RabbitMQConfig {
     /*
      * 消息队列名称、消息队列路由键、消费者消费队列路由键
      */
-    public static final String QUEUE_NAME_DEMO = "rabbitmq_spring_boot_demo";
+    public static final String QUEUE_NAME = "rabbitmq_spring_boot_demo";
     public static final String QUEUE_NAME_API = "rabbitmq_api";
 
     /*
@@ -24,7 +30,6 @@ public class RabbitMQConfig {
     public static final String DIRECT_EXCHANGE_NAME_DEMO = "rabbitmq_direct_exchange_demo"; //直连交换机
     public static final String TOPIC_EXCHANGE_NAME_DEMO= "rabbitmq_topic_exchange_demo"; //
     public static final String TOPIC_EXCHANGE_NAME_API= "rabbitmq_topic_exchange_api"; //
-    public static final String FANOUT_EXCHANGE_NAME_DEMO = "rabbitmq_fanout_exchange_demo";
 
     /*
      * 交换机代理的路由键
@@ -32,20 +37,18 @@ public class RabbitMQConfig {
     public static final String DIRECT_EXCHANGE_ROUT_KEY_DEMO = "rabbitmq.spring.boot.demo";
     public static final String TOPIC_EXCHANGE_ROUT_KEY_DEMO = "rabbitmq.spring.boot.#";
     public static final String TOPIC_EXCHANGE_ROUT_KEY_API  = "rabbitmq.api.#";
-
     /*
      * 生产者发送路由键
      */
     public static final String QUEUE_SENDER_ROUTING_KEY_DEMO = "rabbitmq.spring.boot.demo";
     public static final String QUEUE_SENDER_ROUTING_KEY_DEMO_2 = "rabbitmq.spring.boot.demo.2";
-    public static final String QUEUE_SENDER_ROUTING_KEY_API_USER = "rabbitmq.api.user";
 
     /*
      * 定义队列 demo
      */
     @Bean("queueDemo")
     public Queue queueDemo(){
-        return new Queue(QUEUE_NAME_DEMO);
+        return new Queue(QUEUE_NAME);
     }
 
     /*
@@ -115,10 +118,6 @@ public class RabbitMQConfig {
                                            @Qualifier("topicExchangeApi") TopicExchange topicExchangeApi) {
         return BindingBuilder.bind(queueApi).to(topicExchangeApi).with(TOPIC_EXCHANGE_ROUT_KEY_API);
     }
-
-
-
-
 
 
 

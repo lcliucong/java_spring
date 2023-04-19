@@ -1,5 +1,7 @@
 package com.example.spring.controller.Others;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.example.spring.utils.AESUtil;
 import com.example.spring.utils.Result;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * RabbitMq 调用接口 调用此接口向Sender 发送队列
@@ -26,7 +31,7 @@ public class RabbitMqController {
     private RabbitMqSenderController rabbitMqSenderController;
 
 
-    //创建生产者 直连
+    //创建生产者 直连模式  对应Consumer.java
     @RequestMapping(value = "mqService", method = RequestMethod.POST)
     public void produce(){
         rabbitTemplate.convertAndSend("testSendMsg", "project-name");
@@ -47,9 +52,25 @@ public class RabbitMqController {
     @RequestMapping(value = "send/exchange")
     public Result send2(){
         rabbitMqSenderController.sendToDirectDemo("send direct demo");
-        rabbitMqSenderController.sendToTopicDemo("send topic demo");
-        rabbitMqSenderController.sendToTopicDemo2("send topic demo2");
-        rabbitMqSenderController.sendToTopicApiUser("send tipic api user");
+        return Result.success();
+    }
+
+    @RequestMapping(value = "sendEmail")
+    public Result sendEmail(){
+        String msg1 = "队列1发出";
+        String msg2 = "队列2发出";
+        String msg3 = "队列3执行";
+        //调用producer生产者
+        rabbitMqSenderController.sendEmail(msg1, msg2, msg3);
+
+        //调用第二个生产者
+        Map<String,Object> sqlparam = new HashMap<>();
+        sqlparam.put("username","Javaer");
+        sqlparam.put("password", AESUtil.AESEncrypt("123456","key","EBC"));
+        sqlparam.put("phone","15966668888");
+        sqlparam.put("sex",6);
+        sqlparam.put("status",9);
+        rabbitMqSenderController.makeSql(JSONObject.toJSONString(sqlparam));
         return Result.success();
     }
 
