@@ -3,7 +3,10 @@ package com.example.spring.controller.Others;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.spring.config.RabbitMQConfig;
 import com.example.spring.config.RabbitSendEmailConfig;
+import com.example.spring.pojo.UserList;
+import com.example.spring.service.impl.UserListServiceImpl;
 import com.mysql.cj.xdevapi.JsonString;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.logging.Logger;
@@ -23,6 +26,9 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class RabbitMqReceiverController {
+
+    @Resource
+    UserListServiceImpl userListServiceImpl;
 
     /*
      * 消息接收
@@ -78,7 +84,14 @@ public class RabbitMqReceiverController {
         JSONObject jsonSqlParam = JSONObject.parseObject(jsonParam);
         //数据库业务
         System.out.println("username-----------------------------"+jsonSqlParam.getString("username"));
+        UserList userList = new UserList();
+        userList.setUsername(jsonSqlParam.getString("username"));
+        userList.setPhone(jsonSqlParam.getString("phone"));
+        userList.setPassword(jsonSqlParam.getString("password"));
+        userList.setSex(Integer.parseInt(jsonSqlParam.getString("sex")));
+        userList.setStatus(Integer.parseInt(jsonSqlParam.getString("status")));
+        userListServiceImpl.insertAll(userList);
         log.warn("another-queue-param: {}", jsonParam);
-        log.info("now u is in sql");
+        log.info("u are in the sql function now");
     }
 }

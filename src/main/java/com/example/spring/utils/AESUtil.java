@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Base64;
+import java.util.Objects;
 
 
 @RestController
@@ -36,19 +38,19 @@ public class AESUtil {
                 return null;
             }
             Key = getMD5(Key);
-            byte[] raw = Key.getBytes("utf-8");
+            assert Key != null;
+            byte[] raw = Key.getBytes(StandardCharsets.UTF_8);
             SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
             Cipher cipher = Cipher.getInstance("AES/" + EncryptMode + "/PKCS5Padding");
-            if (EncryptMode == "ECB") {
+            if (Objects.equals(EncryptMode, "ECB")) {
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
             } else {
-                IvParameterSpec iv = new IvParameterSpec(Key.getBytes("utf-8"));//使用CBC模式，需要一个向量iv，可增加加密算法的强度
+                IvParameterSpec iv = new IvParameterSpec(Key.getBytes(StandardCharsets.UTF_8));//使用CBC模式，需要一个向量iv，可增加加密算法的强度
                 cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
             }
-            byte[] encrypted = cipher.doFinal(PlainText.getBytes("utf-8"));
+            byte[] encrypted = cipher.doFinal(PlainText.getBytes(StandardCharsets.UTF_8));
             Base64.Encoder base64Encoder = Base64.getEncoder();
-            String encryptedStr = base64Encoder.encodeToString(encrypted);
-            return encryptedStr;
+            return base64Encoder.encodeToString(encrypted);
             //return new String(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
         } catch (Exception ex) {
             System.out.println(ex.toString());

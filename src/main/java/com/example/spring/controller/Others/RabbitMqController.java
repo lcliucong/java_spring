@@ -66,7 +66,7 @@ public class RabbitMqController {
         //调用第二个生产者
         Map<String,Object> sqlparam = new HashMap<>();
         sqlparam.put("username","Javaer");
-        sqlparam.put("password", AESUtil.AESEncrypt("123456","key","EBC"));
+        sqlparam.put("password", AESUtil.AESEncrypt("123456","key","ECB"));
         sqlparam.put("phone","15966668888");
         sqlparam.put("sex",6);
         sqlparam.put("status",9);

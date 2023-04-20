@@ -3,17 +3,15 @@ package com.example.spring.controller.Others;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.spring.constant.ErrorEnum;
 import com.example.spring.utils.CurlUtil;
-import com.example.spring.utils.Error;
 import com.example.spring.utils.ErrorMessage;
 import com.example.spring.utils.Result;
 import com.google.common.collect.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -182,10 +180,16 @@ public class Test {
     /**
      *
      */
-    @RequestMapping(value = "test", method = RequestMethod.POST)
-    public Result test(){
-
-        return Result.success();
+    @RequestMapping(value = "multiValueMaps", method = RequestMethod.POST)
+    public Result test(@RequestBody Map<String,Object> paramMap){
+        Map<String, Object> map = new HashMap<>();
+        paramMap.forEach((key, values) ->{
+            if (StringUtils.equals(key,"name") && StringUtils.endsWithIgnoreCase(String.valueOf(paramMap.get(key)),"er")){
+                map.put(key,values);
+            }
+        });
+        System.out.println(map);
+        return Result.success(map);
     }
 
 
