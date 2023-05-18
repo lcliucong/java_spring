@@ -24,7 +24,7 @@ import javax.sql.DataSource;
  *  不写@Value值，就需要将application中spring.datasource.url改为spring.datasource.jdbc-url
  *  增加 mybatis.mapper-locations=classpath:mapping/*.xml, classpath*:mapping/automatic/*.xml
  *  其中，第一个为主库，其余为其他库所在的mapper.xml包
- *
+ *  将applications.properties中的mybatis.mapper-locations参数添加上新增的mapper.xml文件路径
  */
 @Configuration
 //除主库外都需要写@MapperScan注解，注入mapper，
