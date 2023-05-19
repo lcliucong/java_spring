@@ -65,4 +65,52 @@
     <select id="getRealPassword" resultType="String">
         select password from user_list where phone = #{phone}
     </select>
+    <insert id="insertAll" parameterType="com.example.spring.pojo.UserList">
+        insert into user_list (id,username,password,phone,sex,status)
+        values
+        (#{id},#{username},#{password},#{phone},#{sex},#{status})
+    </insert>
+    <insert id="insertAll2" parameterType="com.example.spring.pojo.UserList">
+        insert into user_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=0">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password !=null">
+                password,
+            </if>
+            <if test="phone!= null">
+                phone,
+            </if>
+            <if test="sex!=null">
+                sex,
+            </if>
+            <if test="status!=null">
+                status
+            </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=0">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="username!=null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password!=null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phone!=null">
+                #{phone, jdbcType=VARCHAR},
+            </if>
+            <if test="sex!=null">
+                #{sex, jdbcType=INTEGER},
+            </if>
+            <if test="status!=null">
+                #{status, jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
 </mapper>

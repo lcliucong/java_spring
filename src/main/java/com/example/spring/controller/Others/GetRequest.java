@@ -27,6 +27,7 @@ public class GetRequest {
     HttpServletRequest httpServletRequest;
     @Resource
     HttpServletResponse httpServletResponse;
+
     @RequestMapping(value = "gethttp", method = RequestMethod.GET)
     public Object getHttpServ() throws IOException {
         String headers = httpServletRequest.getHeader("user-token");

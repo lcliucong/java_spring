@@ -25,7 +25,7 @@
     <sql id="GetAllFields">
         id,user_name,user_banknumber,user_password,user_status,user_balance,create_time,update_time
     </sql>
-    <select id="getAll" resultMap="BaseResultMap">
+    <select id="getAll" parameterType="com.example.spring.pojo.UserList" resultMap="BaseResultMap">
         select <include refid="GetAllFields"/> from user_bank;
     </select>
 

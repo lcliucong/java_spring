@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="autoDelimitKeywords" value="true"/><!--自动检测关键字,添加反引号-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!--解决覆盖问题-->
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <!-- 生成的实体类添加toString()方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+        <!-- 不生成注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://sh-cdb-228ckmbk.sql.tencentcdb.com:59561/ncnk_33192"
+                        userId="ncnk_18733136717"
+                        password="NianChu_6437ac7bc0665">
+        </jdbcConnection>
+
+        <!-- domain类的位置 -->
+        <javaModelGenerator targetProject="src\main\java"
+                            targetPackage="com.example.spring.pojo"/>
+
+        <!-- mapper xml的位置 -->
+        <sqlMapGenerator targetProject="src\main\java"
+                         targetPackage="mapper"/>
+
+        <!-- mapper类的位置 -->
+        <javaClientGenerator targetProject="src\main\java"
+                             targetPackage="com.example.spring.pojo"
+                             type="XMLMAPPER" />
+        <!--下面是要生成的表 第一个表明 第二个生成类名前缀-->
+        <table tableName="member" domainObjectName="ZfbSign"/>
+    </context>
+</generatorConfiguration>
