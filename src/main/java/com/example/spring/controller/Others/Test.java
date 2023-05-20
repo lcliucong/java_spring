@@ -3,7 +3,7 @@ package com.example.spring.controller.Others;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.spring.constant.ErrorEnum;
 import com.example.spring.utils.CurlUtil;
-import com.example.spring.utils.ErrorMessage;
+import com.example.spring.exception.ErrorException;
 import com.example.spring.utils.Result;
 import com.google.common.collect.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -114,11 +113,11 @@ public class Test {
      *  enum错误抛出   enum异常抛出
      */
     @RequestMapping(value = "Utils", method = RequestMethod.POST)
-    public Result Utils(@RequestBody Map<?,?> mapParam) throws ErrorMessage {
+    public Result Utils(@RequestBody Map<?,?> mapParam) throws ErrorException {
         List<Integer> list = Lists.newArrayList(1,2,3,4,5);
         String reason = String.valueOf(mapParam.get("reason"));
         if (StringUtils.isBlank(reason)){
-            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());
+            throw new ErrorException(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());
         }
         List<String> strList = Lists.newArrayList(
       "element",

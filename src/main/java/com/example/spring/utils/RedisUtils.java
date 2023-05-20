@@ -16,9 +16,13 @@ public class RedisUtils {
         String JsonValue = JSONObject.toJSONString(cacheValue);
         stringRedisTemplate.opsForValue().set(cacheName,JsonValue,expireTime);
     }
+    public void SetStringKey(String cacheName, Object cacheValue){
+        String JsonValue = JSONObject.toJSONString(cacheValue);
+        stringRedisTemplate.opsForValue().set(cacheName,JsonValue);
+    }
 
     public String GetStringKey(String cacheName){
-        String value = stringRedisTemplate.opsForValue().get(cacheName);
-        return value;
+        return stringRedisTemplate.opsForValue().get(cacheName);
     }
+
 }

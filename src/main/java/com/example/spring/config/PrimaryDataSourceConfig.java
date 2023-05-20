@@ -23,6 +23,37 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  * 定义要扫描的mapper.xml包路径
  * new SqlSessionFactoryBean().setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapping/*.xml"));
  */
+
+
+/**
+ * 1.在application.properties中定义好主库和其他库的连接信息 (两个数据源)
+ * //主库：
+ * spring.datasource.name=fast_ticket_issuing_solution
+ * spring.datasource.url=jdbc:mysql://bj-cdb-nnc1565q.sql.tencentcdb.com:61626/fast_ticket_issuing_solution?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+ * spring.datasource.username=root
+ * spring.datasource.password=NIANchu81853239
+ * spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+ * spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+ * //其他库
+ * spring.datasource.other.name=automatic_ticket_maker_client_piaoshen
+ * spring.datasource.other.url=jdbc:mysql://bj-cdb-nnc1565q.sql.tencentcdb.com:61626/automatic_ticket_maker_client_piaoshen?useUnicode=true&characterEncoding=UTF-8
+ * spring.datasource.other.username=root
+ * spring.datasource.other.password=NIANchu81853239
+ * spring.datasource.other.driver-class-name=com.mysql.cj.jdbc.Driver
+ *
+ *  *  2.编写两个数据源连接的Config文件
+ *  *  因为在启动类中定义好了@MapperScan("net.nature.easier_movie.dal")  默认的mapper包，所以默认库（主库）配置 就不需要写@MapperScan注解了
+ *  *  启动类： @MapperScan("net.nature.easier_movie.dal")
+ *  *  其他库需要写 @MapperScan，位置定义到其他库的dao包中
+ *  *  如：@MapperScan(basePackages = "net.nature.easier_movie.dal.automatic.**", sqlSessionTemplateRef = "automaticSqlSessionTemplate")
+ *  *  不写@Value值，就需要将application中spring.datasource.url改为spring.datasource.jdbc-url
+ *  *  增加 mybatis.mapper-locations=classpath:mapping/*.xml, classpath*:mapping/automatic/*.xml
+ *  *  其中，第一个为主库，其余为其他库所在的mapper.xml包
+ *   * 主库需要添加@primary 注解，其他库不用添加
+ *   * 不同库的mapper文件及mapper.xml不要放在同一个包中
+ *   * 定义要扫描的mapper.xml包路径
+ *   * new SqlSessionFactoryBean().setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapping/*.xml"));
+ */
 @Configuration
 @MapperScan("com.example.spring.daos")
 public class PrimaryDataSourceConfig {

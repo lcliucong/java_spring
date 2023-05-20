@@ -3,10 +3,9 @@ package com.example.spring.controller.Others;
 import com.example.spring.constant.ErrorEnum;
 import com.example.spring.filter.UserListFilter;
 import com.example.spring.utils.CommonRes;
-import com.example.spring.utils.ErrorMessage;
+import com.example.spring.exception.ErrorException;
 import com.example.spring.utils.Result;
 import com.google.common.collect.Lists;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -185,9 +183,9 @@ public class ListController {
         return Result.success(res);
     }
     @RequestMapping(value = "testList", method = RequestMethod.POST)
-    public Result nameList() throws ErrorMessage {
+    public Result nameList() throws ErrorException {
         List<String> lists = Lists.newArrayList("name","age","sex","height","weight");
-        if(lists.isEmpty()) { throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());}
+        if(lists.isEmpty()) { throw new ErrorException(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());}
 
         return Result.success();
     }

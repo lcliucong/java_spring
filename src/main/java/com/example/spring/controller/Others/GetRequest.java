@@ -62,7 +62,6 @@ public class GetRequest {
         list.add(toaes);
         list.add(deaes);
         list.add(md5);
-//        String[] res = {toaes,deaes,md5};
 
         return CommonRes.create(list);
     }

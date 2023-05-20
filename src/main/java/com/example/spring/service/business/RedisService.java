@@ -19,7 +19,11 @@ public class RedisService {
     public void SetStringKey(String cacheName, Object cacheValue, Integer expireTime){
         redisUtils.SetStringKey(cacheName, cacheValue, expireTime);
     }
+    public void SetStringKey(String cacheName, Object cacheValue){
+        redisUtils.SetStringKey(cacheName, cacheValue);
+    }
     public String GetStringKey(String cacheName){
         return redisUtils.GetStringKey(cacheName);
     }
+
 }

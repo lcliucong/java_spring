@@ -16,4 +16,6 @@ public interface UserListService {
     UserList selectByPhone(String phone);
     public String getRealPassword(String phone);
     void insertAll(UserList userList);
+
+    UserList getCacheUserByPhone(String phone);
 }

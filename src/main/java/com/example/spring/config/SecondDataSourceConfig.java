@@ -1,5 +1,7 @@
 package com.example.spring.config;
 
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-import javax.sql.DataSource;
-
 /**
  *  2.编写两个数据源连接的Config文件
  *  因为在启动类中定义好了@MapperScan("net.nature.easier_movie.dal")  默认的mapper包，所以默认库（主库）配置 就不需要写@MapperScan注解了
@@ -26,8 +26,8 @@ import javax.sql.DataSource;
  *  其中，第一个为主库，其余为其他库所在的mapper.xml包
  *  将applications.properties中的mybatis.mapper-locations参数添加上新增的mapper.xml文件路径
  */
+
 @Configuration
-//除主库外都需要写@MapperScan注解，注入mapper，
 @MapperScan(basePackages = "com.example.spring.daos.second.**", sqlSessionTemplateRef = "automaticSqlSessionTemplate")
 public class SecondDataSourceConfig {
 
@@ -51,19 +51,16 @@ public class SecondDataSourceConfig {
 
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.automatic")
-    public DataSource secondDatasource() {
+    @ConfigurationProperties(prefix = "spring.datasource.second")
+    public DataSource automaticDataSource() {
         return DataSourceBuilder.create()
                 .username(username).password(password)
                 .url(url).driverClassName(driverClassName)
                 .type(type).build();
     }
 
-    /**
-     * 必须指定扫描哪个文件夹里的mapper.xml文件
-     */
     @Bean
-    public SqlSessionFactory secondSqlSessionFactory(@Qualifier("secondDatasource") DataSource dataSource) throws Exception {
+    public SqlSessionFactory automaticSqlSessionFactory(@Qualifier("automaticDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/second/*.xml"));
@@ -71,12 +68,12 @@ public class SecondDataSourceConfig {
     }
 
     @Bean
-    public DataSourceTransactionManager automaticTransactionManager(@Qualifier("secondDatasource") DataSource dataSource) {
+    public DataSourceTransactionManager automaticTransactionManager(@Qualifier("automaticDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
-    public SqlSessionTemplate automaticSqlSessionTemplate(@Qualifier("secondSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+    public SqlSessionTemplate automaticSqlSessionTemplate(@Qualifier("automaticSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 }

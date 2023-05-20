@@ -4,20 +4,17 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.spring.constant.ErrorEnum;
 import com.example.spring.daos.UserListMapper;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.example.spring.pojo.UserList;
 import com.example.spring.service.impl.UserListServiceImpl;
 import com.example.spring.utils.CommonRes;
-import com.example.spring.utils.ErrorMessage;
+import com.example.spring.exception.ErrorException;
 import com.example.spring.utils.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import com.sun.tools.javac.Main;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,11 +222,11 @@ public class Hello {
      *  enum错误抛出   enum异常抛出
      */
     @RequestMapping(value = "Utils", method = RequestMethod.POST)
-    public Result Utils(@RequestBody Map<?,?> mapParam) throws ErrorMessage {
+    public Result Utils(@RequestBody Map<?,?> mapParam) throws ErrorException {
         List<Integer> list = Lists.newArrayList(1,2,3,4,5);
         String reason = String.valueOf(mapParam.get("reason"));
         if (StringUtils.isBlank(reason)){
-            throw new ErrorMessage(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());
+            throw new ErrorException(ErrorEnum.COMMON_ERROR.getCode(), ErrorEnum.COMMON_ERROR.getMessage());
         }
         List<String> strList = Lists.newArrayList(
                 "element1",

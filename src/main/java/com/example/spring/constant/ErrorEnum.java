@@ -2,7 +2,12 @@ package com.example.spring.constant;
 
 public enum ErrorEnum {
     COMMON_ERROR(10000,"运行出现错误"),
-    LOGIC_ERROR(10000,"代码逻辑错误")
+    LOGIC_ERROR(10000,"代码逻辑错误"),
+
+
+    USER_NOT_EXIST(10001,"用户不存在"),
+    USER_PASSWORD_ERROR(10002,"密码错误"),
+    TOKEN_NOT_EXIST(10003,"token不存在")
     ;
 
 
