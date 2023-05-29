@@ -28,7 +28,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  */
 
 @Configuration
-@MapperScan(basePackages = "com.example.spring.daos.second.**", sqlSessionTemplateRef = "automaticSqlSessionTemplate")
+@MapperScan(basePackages = "com.example.spring.daos.second", sqlSessionTemplateRef = "automaticSqlSessionTemplate")
 public class SecondDataSourceConfig {
 
     @Value("${spring.datasource.second.name}")

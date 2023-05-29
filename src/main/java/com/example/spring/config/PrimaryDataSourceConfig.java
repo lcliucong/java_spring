@@ -43,7 +43,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  *
  *  *  2.编写两个数据源连接的Config文件
  *  *  因为在启动类中定义好了@MapperScan("net.nature.easier_movie.dal")  默认的mapper包，所以默认库（主库）配置 就不需要写@MapperScan注解了
- *  *  启动类： @MapperScan("net.nature.easier_movie.dal")
+ *  *  启动类： @MapperScan("net.nature.easier_movie.dal")   //mapper文件的包位置
+ *  *  ***遇到的问题：在primary中写了MapperScan，启动类中没写，报错（Invalid bound statement (not found): com.example.spring.daos.second.BasicConfigModelMapper.selectAll"）
  *  *  其他库需要写 @MapperScan，位置定义到其他库的dao包中
  *  *  如：@MapperScan(basePackages = "net.nature.easier_movie.dal.automatic.**", sqlSessionTemplateRef = "automaticSqlSessionTemplate")
  *  *  不写@Value值，就需要将application中spring.datasource.url改为spring.datasource.jdbc-url
@@ -55,7 +56,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  *   * new SqlSessionFactoryBean().setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapping/*.xml"));
  */
 @Configuration
-@MapperScan("com.example.spring.daos")
+//@MapperScan("com.example.spring.daos")
 public class PrimaryDataSourceConfig {
 
     @Value("${spring.datasource.name}")

@@ -22,13 +22,13 @@ com\example\spring\config\PrimaryDataSourceConfig.class
 com\example\spring\controller\Others\SetController$1.class
 com\example\spring\service\interfaces\MemberService.class
 com\example\spring\controller\Others\ListController$5.class
+com\example\spring\aspect\AdminValidateAspect.class
 com\example\spring\filter\Filters.class
 com\example\spring\controller\Others\RedisController.class
 com\example\spring\controller\Others\RabbitMqController.class
 com\example\spring\daos\UserBankMapper.class
 com\example\spring\controller\Others\SetController.class
 com\example\spring\controller\Others\SendEmailExampleController.class
-com\example\spring\daos\second\MemberMapper.class
 com\example\spring\controller\Myb\GetUserList$1.class
 com\example\spring\filter\UserListFilter.class
 com\example\spring\controller\Others\SetController$2.class
@@ -59,6 +59,7 @@ com\example\spring\controller\Others\Other.class
 com\example\spring\handle\HandleConfigure.class
 com\example\spring\config\RabbitSendEmailConfig.class
 com\example\spring\controller\Others\CollectionsController.class
+com\example\spring\daos\second\MemberModelMapper.class
 com\example\spring\controller\Others\Hello.class
 com\example\spring\pojo\UserList.class
 com\example\spring\utils\AESUtil.class

@@ -18,6 +18,7 @@ D:\java_project\spring\src\main\java\com\example\spring\utils\PageUtils.java
 D:\java_project\spring\src\main\java\com\example\spring\filter\UserListFilter.java
 D:\java_project\spring\src\main\java\com\example\spring\config\PrimaryDataSourceConfig.java
 D:\java_project\spring\src\main\java\com\example\spring\controller\Others\TimeController.java
+D:\java_project\spring\src\main\java\com\example\spring\daos\second\MemberModelMapper.java
 D:\java_project\spring\src\main\java\com\example\spring\controller\Others\RabbitMqController.java
 D:\java_project\spring\src\main\java\com\example\spring\pojo\BookModel.java
 D:\java_project\spring\src\main\java\com\example\spring\service\impl\UserBankServiceImpl.java
@@ -48,7 +49,6 @@ D:\java_project\spring\src\main\java\com\example\spring\controller\Others\Reques
 D:\java_project\spring\src\main\java\com\example\spring\controller\Others\JwtController.java
 D:\java_project\spring\src\main\java\com\example\spring\utils\Result.java
 D:\java_project\spring\src\main\java\com\example\spring\config\RabbitMQConfig.java
-D:\java_project\spring\src\main\java\com\example\spring\daos\second\MemberMapper.java
 D:\java_project\spring\src\main\java\com\example\spring\exception\FilterException.java
 D:\java_project\spring\src\main\java\com\example\spring\utils\RedisUtils.java
 D:\java_project\spring\src\main\java\com\example\spring\service\interfaces\BookService.java

@@ -1,9 +1,10 @@
 package com.example.spring.controller.Others;
 
-import com.example.spring.pojo.MemberModel;
-import com.example.spring.service.impl.MemberServiceImpl;
-import com.example.spring.service.interfaces.MemberService;
+import com.example.spring.pojo.BasicConfigModel;
+import com.example.spring.service.impl.BasicConfigServiceImpl;
+import com.example.spring.service.interfaces.BasicConfigService;
 import com.example.spring.utils.Result;
+import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class SenderController {
     @Resource
     HttpServletRequest httpServletRequest;
     @Resource
-    MemberServiceImpl memberServiceImpl;
+    BasicConfigService basicConfigService;
 
     @RequestMapping(value = "poster")
     public Result getPoster() throws InterruptedException {
@@ -35,7 +36,7 @@ public class SenderController {
 
     @RequestMapping(value = "member")
     public Result getMember(){
-        List<MemberModel> list = memberServiceImpl.selectAll();
+        List<BasicConfigModel> list = basicConfigService.selectAll();
         return Result.success(list);
     }
 

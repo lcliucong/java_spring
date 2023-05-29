@@ -34,7 +34,8 @@ public class AdminValidateAspect {
     @Resource
     RedisService redisService;
 
-    //环绕增强，切点方法执行前、后
+    //@Around环绕增强，切点方法执行前、后都会执行
+    //token的Around 需要排除登录接口
     @Around("execution(* com.example.spring.controller..*.*(..))" +
             "execution(* com.example.spring.controller.*.*.*(..)) ))")
     public Object validates(ProceedingJoinPoint pjp) throws Throwable {
@@ -51,7 +52,6 @@ public class AdminValidateAspect {
                     ErrorEnum.USER_NOT_EXIST.getMessage());
         }
         redisService.SetStringKey(UserInfoEnum.USER_INFO.getMessage()+deToken, userInfo);
-
         return pjp.proceed();
     }
 }

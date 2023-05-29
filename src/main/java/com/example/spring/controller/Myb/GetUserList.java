@@ -119,9 +119,6 @@ public class GetUserList {
 
 
 
-
-
-
     @RequestMapping(value = "makeE", method = RequestMethod.POST)
     public <E> Result makeE (@RequestParam(value = "username") E username, E password){
         Set<E> sets = new HashSet<>();

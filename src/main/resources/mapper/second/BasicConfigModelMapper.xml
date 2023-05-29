@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.spring.daos.second.BasicConfigModelMapper">
+    <resultMap id="BaseResultMap" type="com.example.spring.pojo.BasicConfigModel">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="sub_id" jdbcType="INTEGER" property="subId" />
+        <result column="mark" jdbcType="VARCHAR" property="mark" />
+        <result column="mark_value" jdbcType="VARCHAR" property="markValue" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="GetFields">
+        id,sub_id,mark,mark_value,create_time,update_time
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+            <include refid="GetFields"/>
+        from basic_config;
+    </select>
+</mapper>

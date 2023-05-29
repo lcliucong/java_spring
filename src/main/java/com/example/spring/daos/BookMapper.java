@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper  //添加Mapper注解，不然找不到
 public interface BookMapper {
 
+    //开启事务
     @Transactional(rollbackFor = Exception.class)
     int saves(BookModel bookModel);
 
@@ -20,4 +21,5 @@ public interface BookMapper {
     List<BookModel> selectBy(BookModel condition);
     List<BookModel> getByUser(BookModel condition);
     List<BookModel> getByname(BookModel condition);
+
 }
