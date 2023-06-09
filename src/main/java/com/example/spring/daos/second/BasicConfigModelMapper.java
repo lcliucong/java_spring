@@ -12,4 +12,6 @@ import java.util.List;
 public interface BasicConfigModelMapper {
 
     List<BasicConfigModel> selectAll();
+
+    int insert(BasicConfigModel basicConfigModel);
 }

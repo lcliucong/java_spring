@@ -36,8 +36,9 @@ public class AdminValidateAspect {
 
     //@Around环绕增强，切点方法执行前、后都会执行
     //token的Around 需要排除登录接口
-    @Around("execution(* com.example.spring.controller..*.*(..))" +
-            "execution(* com.example.spring.controller.*.*.*(..)) ))")
+    @Around("execution(* com.example.spring.controller.Es..*.*(..))" +
+            "execution(* com.example.spring.controller.Myb.*.*.*(..)) ))"+
+            "execution(* com.example.spring.controller.Others.*)")
     public Object validates(ProceedingJoinPoint pjp) throws Throwable {
         String token = httpServletRequest.getHeader("token");
         if (token==null || StringUtils.isBlank(token)){

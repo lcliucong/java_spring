@@ -18,4 +18,9 @@ public class BasicConfigServiceImpl implements BasicConfigService {
     public List<BasicConfigModel> selectAll() {
         return basicConfigModelMapper.selectAll();
     }
+
+    @Override
+    public int insert(BasicConfigModel condition) {
+        return basicConfigModelMapper.insert(condition);
+    }
 }

@@ -17,4 +17,43 @@
             <include refid="GetFields"/>
         from basic_config;
     </select>
+
+    <insert id="insert" parameterType="com.example.spring.pojo.BasicConfigModel">
+        insert into basic_config
+        <!--  prefix前缀  suffix后缀  suffixOverrides去除多余后缀    -->
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subId != null">
+                sub_id,
+            </if>
+            <if test="mark != null">
+                mark,
+            </if>
+            <if test="markValue != null">
+                mark_value,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subId != null">
+                subId = #{subId,jdbcType=INTEGER}
+            </if>
+            <if test="mark != null">
+                mark = #{mark,jdbcType=VARCHAR}
+            </if>
+            <if test="markValue != null != null">
+                markValue = #{markValue,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </trim>
+    </insert>
 </mapper>

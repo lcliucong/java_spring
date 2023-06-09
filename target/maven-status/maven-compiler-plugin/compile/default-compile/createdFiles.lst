@@ -20,7 +20,6 @@ com\example\spring\controller\Others\TimeController.class
 com\example\spring\service\impl\BookServiceImpl.class
 com\example\spring\config\PrimaryDataSourceConfig.class
 com\example\spring\controller\Others\SetController$1.class
-com\example\spring\service\interfaces\MemberService.class
 com\example\spring\controller\Others\ListController$5.class
 com\example\spring\aspect\AdminValidateAspect.class
 com\example\spring\filter\Filters.class
@@ -59,7 +58,6 @@ com\example\spring\controller\Others\Other.class
 com\example\spring\handle\HandleConfigure.class
 com\example\spring\config\RabbitSendEmailConfig.class
 com\example\spring\controller\Others\CollectionsController.class
-com\example\spring\daos\second\MemberModelMapper.class
 com\example\spring\controller\Others\Hello.class
 com\example\spring\pojo\UserList.class
 com\example\spring\utils\AESUtil.class
@@ -75,9 +73,7 @@ com\example\spring\controller\Others\Test.class
 com\example\spring\exception\FilterException.class
 com\example\spring\controller\Others\CollectionsController$2.class
 com\example\spring\controller\Others\Consumer.class
-com\example\spring\pojo\MemberModel.class
 com\example\spring\controller\Others\StringController.class
-com\example\spring\service\impl\MemberServiceImpl.class
 com\example\spring\pojo\BookModel.class
 com\example\spring\utils\CommonRes.class
 com\example\spring\controller\Others\GetRequest.class
