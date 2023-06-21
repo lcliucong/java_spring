@@ -103,12 +103,12 @@ public class EsController {
 
     @RequestMapping(value = "createAll")
     public Result esCreateAll() throws IOException {
-        List<BulkOperation> list = new ArrayList<>();
-        UserList userList = new UserList();
-        userList.setStatus(1);
-        userList.setPassword("123456");
-        userList.setPhone("1984631");
-
+        RestClient restClient = RestClient.builder(
+                new HttpHost("localhost", 9200)).build();
+        ElasticsearchTransport transport = new RestClientTransport(
+                restClient, new JacksonJsonpMapper()
+        );
+        ElasticsearchClient client = new ElasticsearchClient(transport);
         return Result.success();
     }
 
@@ -133,6 +133,8 @@ public class EsController {
 
     @RequestMapping(value = "makePage")
     public Result makePage(){
+//        htmlunit + jsoup + webClient
+
         return Result.success();
     }
 

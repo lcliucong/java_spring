@@ -1,5 +1,6 @@
 package com.example.spring.handle;
 
+import com.example.spring.exception.ErrorException;
 import lombok.extern.slf4j.Slf4j;
 import com.example.spring.utils.Error;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +30,13 @@ import java.util.Map;
 @RestControllerAdvice
 public class OverAllException {
 
+    /**
+     * 全局主动抛出异常
+     */
+    @ExceptionHandler(ErrorException.class)
+    public Error ErrorExceptionHandler(ErrorException ex) throws ErrorException {
+        return Error.make(ex.getCode(), ex.getMessage());
+    }
 
     /**
      * 权限校验异常

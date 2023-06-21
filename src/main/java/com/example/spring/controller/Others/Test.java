@@ -68,7 +68,7 @@ public class Test {
     /**
      * StringUtils 工具类 + 断言
      * StringUtils.isBlank(String str)  判断字符串是否为空,  null, "", " " 三种情况
-     * StringUtils.split(String str, ","); 分割字符串
+     * StringUtils.split(String str, ","); 分割,截取字符串
      * StringUtils.isNumeric(String str) 判断字符串是否是纯数字
      * StringUtils.join(List list, "你想用什么符号转换为list")  将集合拼接成字符串
      */
