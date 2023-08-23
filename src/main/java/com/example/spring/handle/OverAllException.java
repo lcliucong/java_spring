@@ -34,7 +34,7 @@ public class OverAllException {
      * 全局主动抛出异常
      */
     @ExceptionHandler(ErrorException.class)
-    public Error ErrorExceptionHandler(ErrorException ex) throws ErrorException {
+    public Error ErrorExceptionHandler(ErrorException ex){
         return Error.make(ex.getCode(), ex.getMessage());
     }
 

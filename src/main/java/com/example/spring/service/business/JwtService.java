@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.spring.exception.ErrorException;
-import com.example.spring.utils.Error;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -78,7 +77,7 @@ public class JwtService {
      * 验证token
      * @param token
      */
-    public static String validateToken(String token) throws ErrorException, IOException {
+    public static String validateToken(String token) throws ErrorException {
         try {
             return JWT.require(Algorithm.HMAC512(secret))
                     .build()

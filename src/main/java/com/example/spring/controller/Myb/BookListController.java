@@ -21,9 +21,8 @@ import com.example.spring.pojo.BookModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 @RestController //@controller和@ResponseBody合体
 @Component  //作为组件类存在
@@ -44,13 +43,17 @@ public class BookListController {
         formatPageHelper(bookListFilter);
         //获取全部数据
         List<BookModel> list = bookServiceImpl.getAll();
+        Stream<BookModel> str = list.stream();
+        //通过lambda表达式筛选
+        Stream<BookModel> optionalLong = str.filter(bookModel -> Objects.equals(bookModel.getBookName(), "三体"));
+        System.out.println(optionalLong);
         //进行分页处理
         PageInfo<BookModel> pageInfo = new PageInfo<>(list);
         //调用结果整理方法
         PageUtils<BookModel> pageUtils = new PageUtils<>();
         HashMap<String, Object> result = pageUtils.returnMake(pageInfo);
         //统一返回格式
-        return CommonRes.create(result);
+        return CommonRes.create(optionalLong);
     }
 
     /**

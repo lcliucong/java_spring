@@ -245,4 +245,26 @@
         </plugins>
     </build>
     <packaging>jar</packaging>
+<!-- 倘若想运行某个controller的主类Main(String args[])，可以将mainClass进行修改 -->
+<!-- 比如启动Springboot项目时想启动、想运行EsController的main(String args[])方法 -->
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <version>3.0.8</version>-->
+<!--                <configuration>-->
+<!--                    <mainClass>com.example.spring.controller.Es.EsController</mainClass>-->
+<!--                    <finalName>${project.artifactId}</finalName>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 </project>
